@@ -1,0 +1,67 @@
+{% extends "base" %}
+{% block content %}
+{% for winner in winner %}
+<br />
+<div class="card">
+  <div class="card-header">
+    Next stream unless you vote!
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ winner.title }}</h5>
+    <p class="card-text">{{ winner.body }}</p>
+  </div>
+</div>
+{% endfor %}
+<br />
+<style>
+.list-group-item-info { font-weight: bold; }
+.list-group-item-info ~ div {
+    opacity: 0.5;
+}
+</style>
+<div id="ballot" class="list-group">
+    {% for item in items %}
+    {% if item.1 %}
+    {% if not item.0.done %}
+    <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
+        <h5 class="mb-1">{{ item.0.title }}</h5>
+        <p class="mb-1">{{ item.0.body }}</p>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    <div class="list-group-item list-group-item-action list-group-item-info" data-id="void">I do not want to vote for the following:</div>
+
+    {% for item in items %}
+    {% if not item.1 %}
+    {% if not item.0.done %}
+    <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
+        <h5 class="mb-1">{{ item.0.title }}</h5>
+        <p class="mb-1">{{ item.0.body }}</p>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
+<script>
+var sortable = Sortable.create(document.getElementById('ballot'), {
+    onUpdate: function (evt) {
+        var order = sortable.toArray();
+        var votes = [];
+        for (o in order) {
+            var o = order[o];
+            if (o == "void") { break; }
+            votes.push(Number(o));
+        }
+
+        fetch("/vote", {
+            method: "POST",
+            headers: { "Content-Type": "application/json; charset=utf-8", },
+            body: JSON.stringify({"votes": votes}),
+        });
+    }
+});
+</script>
+{% endblock %}

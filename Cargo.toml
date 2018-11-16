@@ -1,0 +1,17 @@
+[package]
+name = "voters"
+version = "0.0.1"
+publish = false
+
+[dependencies]
+rocket = "0.4.0-rc.1"
+serde = "1.0"
+serde_json = "1.0"
+serde_derive = "1.0"
+diesel = { version = "1.3", features = ["sqlite", "r2d2"] }
+itertools = "0.7"
+rcir = "0.2"
+
+[dependencies.rocket_contrib]
+version = "0.4.0-rc.1"
+features = ["tera_templates", "diesel_sqlite_pool"]

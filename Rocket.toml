@@ -1,0 +1,5 @@
+[global]
+template_dir = "templates"
+
+[global.databases.sqlite_database]
+url = "db/db.sqlite"
