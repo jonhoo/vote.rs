@@ -92,10 +92,15 @@ fn index(conn: DbConn) -> Template {
     Template::render("index", Context::new(&conn))
 }
 
+#[head("/")]
+fn index_head(conn: DbConn) -> Template {
+    index(conn)
+}
+
 fn rocket() -> (Rocket, Option<DbConn>) {
     let rocket = rocket::ignite()
         .attach(DbConn::fairing())
-        .mount("/", routes![index, login, votes, vote])
+        .mount("/", routes![index, index_head, login, votes, vote])
         .attach(Template::fairing());
 
     let conn = match cfg!(test) {
