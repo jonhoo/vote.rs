@@ -9,6 +9,6 @@ address = "127.0.0.1"
 port = 8000
 workers = 1
 keep_alive = 5
-log = "info"
+log = "normal"
 secret_key = "/qC88ypjiIzpjGqnubQK5HOW7UN1DBO/hJMP60FnOb8="
 limits = { forms = 8192 }
