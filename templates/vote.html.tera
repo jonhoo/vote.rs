@@ -59,7 +59,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
 <script>
 if (location.href.indexOf('login') !== -1) {
-    history.replaceState({}, "", location.href.replace("/login", ""));
+    history.replaceState({}, "", location.href.replace("/login", "/"));
 }
 
 var sortable = Sortable.create(document.getElementById('ballot'), {
