@@ -14,6 +14,12 @@
 {% endfor %}
 <br />
 <style>
+.list-group-item {
+    cursor: grab;
+}
+.list-group-item.sortable-chosen {
+    cursor: grabbing;
+}
 .list-group-item-info { font-weight: bold; }
 .list-group-item-info ~ div {
     opacity: 0.5;
