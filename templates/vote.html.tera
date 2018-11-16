@@ -13,6 +13,12 @@
 </div>
 {% endfor %}
 <br />
+<div class="alert alert-primary" role="alert">
+  Drag and drop the candidates below into your order of preference.
+  Candidates under the gray bar are ignored.
+  You can also drag the gray bar!
+</div>
+<br />
 <style>
 .list-group-item {
     cursor: grab;
@@ -20,8 +26,8 @@
 .list-group-item.sortable-chosen {
     cursor: grabbing;
 }
-.list-group-item-info { font-weight: bold; }
-.list-group-item-info ~ div {
+.list-group-item-dark { font-weight: bold; }
+.list-group-item-dark ~ div {
     opacity: 0.5;
 }
 </style>
@@ -37,7 +43,7 @@
     {% endif %}
     {% endfor %}
 
-    <div class="list-group-item list-group-item-action list-group-item-info" data-id="void">I do not want to vote for the following:</div>
+    <div class="list-group-item list-group-item-action list-group-item-dark" data-id="void">I do not want to vote for the following:</div>
 
     {% for item in items %}
     {% if not item.1 %}

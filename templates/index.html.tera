@@ -15,11 +15,10 @@
 <br />
 <form action="login" method="post">
     <div class="row">
-        <div class="col-3"></div>
-        <div class="col-3">
+        <div class="col-auto">
             <input class="form-control" type="text" placeholder="enter a unique name" name="username" required autofocus />
         </div>
-        <div class="col-3">
+        <div class="col-auto">
             <button type="submit" class="btn btn-primary">Register me to vote!</button>
         </div>
     </div>

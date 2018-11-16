@@ -57,7 +57,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for Auth {
     fn from_request(request: &'a Request<'r>) -> request::Outcome<Auth, !> {
         request
             .cookies()
-            .get("user_id")
+            .get_private("user_id")
             .and_then(|cookie| cookie.value().parse().ok())
             .map(|id| Auth(id))
             .or_forward(())
@@ -71,7 +71,7 @@ fn login(mut cookies: Cookies, input: Form<NewUser>, conn: DbConn) -> Template {
         index(conn)
     } else {
         let u = user.login(&conn);
-        cookies.add(Cookie::new("user_id", u.id.to_string()));
+        cookies.add_private(Cookie::new("user_id", u.id.to_string()));
         votes(Auth(u.id), conn)
     }
 }
