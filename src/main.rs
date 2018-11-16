@@ -18,7 +18,6 @@ use diesel::SqliteConnection;
 use rocket::http::{Cookie, Cookies};
 use rocket::outcome::IntoOutcome;
 use rocket::request::{self, Form, FromRequest, Request};
-use rocket::response::Redirect;
 use rocket::Rocket;
 use rocket_contrib::{json::Json, templates::Template};
 
@@ -66,14 +65,14 @@ impl<'a, 'r> FromRequest<'a, 'r> for Auth {
 }
 
 #[post("/login", data = "<input>")]
-fn login(mut cookies: Cookies, input: Form<NewUser>, conn: DbConn) -> Redirect {
+fn login(mut cookies: Cookies, input: Form<NewUser>, conn: DbConn) -> Template {
     let user = input.into_inner();
     if user.username.is_empty() {
-        Redirect::to("/")
+        index(conn)
     } else {
         let u = user.login(&conn);
         cookies.add(Cookie::new("user_id", u.id.to_string()));
-        Redirect::to("/")
+        votes(Auth(u.id), conn)
     }
 }
 
