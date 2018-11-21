@@ -73,6 +73,13 @@ var sortable = Sortable.create(document.getElementById('ballot'), {
             method: "POST",
             headers: { "Content-Type": "application/json; charset=utf-8", },
             body: JSON.stringify({"votes": votes}),
+        }).then(function(e) {
+            if (!e.ok) {
+                alert(
+                    "Your vote couldn't be registered!\n" +
+                    "Try refreshing the page, or use a different browser.\n" +
+                    "If the issue persists, please ping @jonhoo.");
+            }
         });
     }
 });
