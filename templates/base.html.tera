@@ -11,11 +11,10 @@
         <meta name="author" content="Jon Gjengset et. al.">
     </head>
     <body>
-        <div class="container">
-            <br />
-            <nav class="navbar navbar-light bg-light">
-              <span class="navbar-brand mb-0 h1">Vote for the next Rust live-coding stream!</span>
-            </nav>
+        <nav class="navbar navbar-dark bg-primary">
+          <span class="navbar-brand mb-0 h1">Vote for the next Rust live-coding stream!</span>
+        </nav>
+        <div class="container pt-3">
             {% block content %}{% endblock content %}
         </div>
     </body>

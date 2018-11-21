@@ -1,8 +1,7 @@
 {% extends "base" %}
 {% block content %}
 {% for winner in winner %}
-<br />
-<div class="card">
+<div class="card mt-3">
   <div class="card-header">
     Next stream unless you vote!
   </div>
@@ -12,13 +11,11 @@
   </div>
 </div>
 {% endfor %}
-<br />
-<div class="alert alert-primary" role="alert">
+<div class="alert alert-primary mt-3" role="alert">
   Drag and drop the candidates below into your order of preference.
   Candidates under the gray bar are ignored.
   You can also drag the gray bar!
 </div>
-<br />
 <style>
 .list-group-item {
     cursor: grab;
@@ -31,7 +28,7 @@
     opacity: 0.5;
 }
 </style>
-<div id="ballot" class="list-group">
+<div id="ballot" class="list-group mt-3">
     {% for item in items %}
     {% if item.1 %}
     {% if not item.0.done %}
