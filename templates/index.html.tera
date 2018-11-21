@@ -11,6 +11,9 @@
   </div>
 </div>
 {% endfor %}
+<div class="alert alert-warning mt-3" role="alert">
+  Don't register multiple users just because you can. It's an asshat thing to do.
+</div>
 <form action="login" method="post" class="mt-3">
     <div class="row">
         <div class="col-auto">
