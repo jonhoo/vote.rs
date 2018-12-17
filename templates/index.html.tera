@@ -1,6 +1,6 @@
 {% extends "base" %}
 {% block content %}
-{% for winner in winner %}
+{% if winner %}
 <div class="card mt-3">
   <div class="card-header">
     Next stream unless you vote!
@@ -10,7 +10,7 @@
     <p class="card-text">{{ winner.body }}</p>
   </div>
 </div>
-{% endfor %}
+{% endif %}
 <div class="alert alert-warning mt-3" role="alert">
   Don't register multiple users just because you can. It's an asshat thing to do.
 </div>
