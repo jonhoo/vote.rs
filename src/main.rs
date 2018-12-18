@@ -29,7 +29,7 @@ pub struct DbConn(SqliteConnection);
 #[derive(Debug, Serialize)]
 struct Context {
     winner: Option<Item>,
-    items: Vec<(Item, bool)>,
+    items: Vec<(Item, Option<i32>)>,
 }
 
 impl Context {

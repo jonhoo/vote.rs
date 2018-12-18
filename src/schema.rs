@@ -87,7 +87,7 @@ impl NewUser {
 }
 
 impl Item {
-    pub fn for_user(uid: i32, conn: &SqliteConnection) -> Vec<(Item, bool)> {
+    pub fn for_user(uid: i32, conn: &SqliteConnection) -> Vec<(Item, Option<i32>)> {
         all_items
             .left_join(
                 self::schema::votes::table
@@ -98,9 +98,6 @@ impl Item {
             .select((self::schema::items::all_columns, ordinal.nullable()))
             .load::<(Item, Option<i32>)>(conn)
             .unwrap()
-            .into_iter()
-            .map(|(i, ord)| (i, ord.map(|_| true).unwrap_or(false)))
-            .collect()
     }
 }
 
