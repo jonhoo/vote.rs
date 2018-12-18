@@ -28,21 +28,21 @@ pub struct DbConn(SqliteConnection);
 
 #[derive(Debug, Serialize)]
 struct Context {
-    winner: Vec<Item>,
+    winner: Option<Item>,
     items: Vec<(Item, bool)>,
 }
 
 impl Context {
     pub fn new(conn: &DbConn) -> Context {
         Context {
-            winner: Vote::run_election(conn).into_iter().collect(),
+            winner: Vote::run_election(conn),
             items: Vec::new(), // not used if not logged in
         }
     }
 
     pub fn for_user(user: Auth, conn: &DbConn) -> Context {
         Context {
-            winner: Vote::run_election(conn).into_iter().collect(),
+            winner: Vote::run_election(conn),
             items: Item::for_user(user.0, conn),
         }
     }
