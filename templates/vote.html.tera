@@ -30,7 +30,7 @@
 </style>
 <div id="ballot" class="list-group mt-3">
     {% for item in items %}
-    {% if item.1 %}
+    {% if item.1 is number %}
     {% if not item.0.done %}
     <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
         <h5 class="mb-1">{{ item.0.title }}</h5>
@@ -43,7 +43,7 @@
     <div class="list-group-item list-group-item-action list-group-item-dark" data-id="void">I do not want to vote for the following:</div>
 
     {% for item in items %}
-    {% if not item.1 %}
+    {% if not item.1 is number %}
     {% if not item.0.done %}
     <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
         <h5 class="mb-1">{{ item.0.title }}</h5>
