@@ -14,7 +14,6 @@
 <div class="alert alert-primary mt-3" role="alert">
   Drag and drop the candidates below into your order of preference.
   Candidates under the gray bar are ignored.
-  You can also drag the gray bar!
 </div>
 <style>
 .list-group-item .badge {
