@@ -17,10 +17,11 @@
   You can also drag the gray bar!
 </div>
 <style>
-.list-group-item {
+.list-group-item .badge {
     cursor: grab;
+    float: right;
 }
-.list-group-item.sortable-chosen {
+.list-group-item.sortable-chosen .badge {
     cursor: grabbing;
 }
 .list-group-item-dark { font-weight: bold; }
@@ -33,6 +34,7 @@
     {% if item.1 is number %}
     {% if not item.0.done %}
     <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
+        <span class="badge badge-info">drag me</span>
         <h5 class="mb-1">{{ item.0.title }}</h5>
         <p class="mb-1">{{ item.0.body }}</p>
     </div>
@@ -46,6 +48,7 @@
     {% if not item.1 is number %}
     {% if not item.0.done %}
     <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
+        <span class="badge badge-info">drag me</span>
         <h5 class="mb-1">{{ item.0.title }}</h5>
         <p class="mb-1">{{ item.0.body }}</p>
     </div>
@@ -60,6 +63,7 @@ if (location.href.indexOf('login') !== -1) {
 }
 
 var sortable = Sortable.create(document.getElementById('ballot'), {
+    handle: ".badge",
     onUpdate: function (evt) {
         var order = sortable.toArray();
         var votes = [];
