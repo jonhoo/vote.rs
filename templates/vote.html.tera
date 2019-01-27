@@ -69,7 +69,7 @@ var sortable = Sortable.create(document.getElementById('ballot'), {
         for (const o of order) {
             var o = order[o];
             if (o == "void") { break; }
-            votes.push(Number(o));
+            votes.push(+o);
         }
 
         fetch("vote", {
