@@ -67,7 +67,6 @@ var sortable = Sortable.create(document.getElementById('ballot'), {
         var order = sortable.toArray();
         var votes = [];
         for (const o of order) {
-            var o = order[o];
             if (o == "void") { break; }
             votes.push(+o);
         }
