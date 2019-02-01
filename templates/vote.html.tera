@@ -63,6 +63,7 @@ if (location.href.indexOf('login') !== -1) {
 
 var sortable = Sortable.create(document.getElementById('ballot'), {
     handle: ".badge",
+    scroll: true,
     onUpdate: function (evt) {
         var order = sortable.toArray();
         var votes = [];
