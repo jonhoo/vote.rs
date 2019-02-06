@@ -1,17 +1,28 @@
 {% extends "base" %}
 {% block content %}
 {% if winner %}
-<div class="card mt-3">
-  <div class="card-header">
-    Next stream unless you vote!
+<div class="card border-primary mt-3">
+  <div class="card-header bg-primary text-white">
+    Unless you change the vote, the next stream will be:
   </div>
   <div class="card-body">
     <h5 class="card-title">{{ winner.title }}</h5>
     <p class="card-text">{{ winner.body }}</p>
   </div>
 </div>
+{% if second %}
+<div class="card border-info mt-3">
+  <div class="card-header bg-info text-white">
+    The runner-up in this election is:
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ second.title }}</h5>
+    <p class="card-text">{{ second.body }}</p>
+  </div>
+</div>
 {% endif %}
-<div class="alert alert-primary mt-3" role="alert">
+{% endif %}
+<div class="alert alert-info mt-3" role="alert">
   Drag and drop the candidates below into your order of preference.
   Candidates under the gray bar are ignored.
 </div>
@@ -33,7 +44,7 @@
     {% if item.1 is number %}
     {% if not item.0.done %}
     <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
-        <span class="badge badge-info">drag me</span>
+        <span class="badge badge-info">drag here</span>
         <h5 class="mb-1">{{ item.0.title }}</h5>
         <p class="mb-1">{{ item.0.body }}</p>
     </div>
@@ -47,7 +58,7 @@
     {% if not item.1 is number %}
     {% if not item.0.done %}
     <div class="list-group-item list-group-item-action flex-column align-items-start" data-id="{{ item.0.id }}">
-        <span class="badge badge-info">drag me</span>
+        <span class="badge badge-info">drag here</span>
         <h5 class="mb-1">{{ item.0.title }}</h5>
         <p class="mb-1">{{ item.0.body }}</p>
     </div>

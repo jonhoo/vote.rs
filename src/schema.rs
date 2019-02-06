@@ -130,6 +130,37 @@ impl Vote {
         }
     }
 
+    pub fn run_second_election(conn: &SqliteConnection, winner: &Option<Item>) -> Option<Item> {
+        let winner = winner.as_ref()?;
+
+        let votes = all_votes
+            .inner_join(self::schema::items::table)
+            .filter(item_done.eq(false))
+            .filter(item_id.ne(winner.id))
+            .order((user_id.asc(), ordinal.asc()))
+            .select((user_id, item_id, ordinal))
+            .get_results::<Vote>(conn)
+            .unwrap();
+
+        // the extra collections here are sad.
+        let votes: Vec<Vec<_>> = votes
+            .into_iter()
+            .group_by(|v| v.user_id)
+            .into_iter()
+            .map(|(_, ballot)| ballot.into_iter().map(|v| v.item_id).collect())
+            .collect();
+
+        match rcir::run_election(&votes).ok()? {
+            rcir::ElectionResult::Winner(&iid) => {
+                Some(all_items.find(iid).get_result::<Item>(conn).unwrap())
+            }
+            rcir::ElectionResult::Tie(iids) => {
+                // TODO: maybe pick the oldest one?
+                Some(all_items.find(*iids[0]).get_result::<Item>(conn).unwrap())
+            }
+        }
+    }
+
     pub fn save_ballot(uid: i32, ballot: Ballot, conn: &SqliteConnection) {
         diesel::delete(all_votes.filter(user_id.eq(&uid)))
             .execute(conn)
@@ -158,13 +189,13 @@ impl Vote {
             .execute(conn)
             .is_ok()
     }
-    
+
     pub fn toggle_with_id(id: i32, conn: &SqliteConnection) -> bool {
         let task = all_tasks.find(id).get_result::<Task>(conn);
         if task.is_err() {
             return false;
         }
-    
+
         let new_status = !task.unwrap().completed;
         let updated_task = diesel::update(all_tasks.find(id));
         updated_task
@@ -172,7 +203,7 @@ impl Vote {
             .execute(conn)
             .is_ok()
     }
-    
+
     pub fn delete_with_id(id: i32, conn: &SqliteConnection) -> bool {
         diesel::delete(all_tasks.find(id)).execute(conn).is_ok()
     }
