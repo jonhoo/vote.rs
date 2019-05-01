@@ -119,7 +119,7 @@ impl Vote {
             .map(|(_, ballot)| ballot.into_iter().map(|v| v.item_id).collect())
             .collect();
 
-        match rcir::run_election(&votes).ok()? {
+        match rcir::run_election(&votes, rcir::MajorityMode::RemainingMajority).ok()? {
             rcir::ElectionResult::Winner(&iid) => {
                 Some(all_items.find(iid).get_result::<Item>(conn).unwrap())
             }
@@ -150,7 +150,7 @@ impl Vote {
             .map(|(_, ballot)| ballot.into_iter().map(|v| v.item_id).collect())
             .collect();
 
-        match rcir::run_election(&votes).ok()? {
+        match rcir::run_election(&votes, rcir::MajorityMode::RemainingMajority).ok()? {
             rcir::ElectionResult::Winner(&iid) => {
                 Some(all_items.find(iid).get_result::<Item>(conn).unwrap())
             }
