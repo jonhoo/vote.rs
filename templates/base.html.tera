@@ -9,6 +9,7 @@
         <title>Rust live-stream voting</title>
         <meta name="description" content="Vote for the next Rust live-coding stream topic">
         <meta name="author" content="Jon Gjengset et. al.">
+	{% block head %}{% endblock %}
     </head>
     <body>
         <nav class="navbar navbar-dark bg-primary">

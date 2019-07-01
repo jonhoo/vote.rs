@@ -25,3 +25,12 @@
     </div>
 </form>
 {% endblock %}
+{% block head %}
+{% if winner %}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@jonhoo" />
+<meta name="twitter:site" content="@jonhoo" />
+<meta property="og:title" content="Leading topic: {{ winner.title }}" />
+<meta property="og:description" content="{{ winner.body }}" />
+{% endif %}
+{% endblock %}
