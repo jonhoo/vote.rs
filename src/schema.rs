@@ -49,8 +49,8 @@ pub struct Item {
     pub done: bool,
 }
 
-#[table_name = "votes"]
 #[derive(Queryable, Insertable, Debug, Clone)]
+#[table_name = "votes"]
 pub struct Vote {
     pub user_id: i32,
     pub item_id: i32,
@@ -66,8 +66,8 @@ pub struct Ballot {
     pub votes: Vec<i32>,
 }
 
-#[table_name = "users"]
 #[derive(FromForm, Insertable)]
+#[table_name = "users"]
 pub struct NewUser {
     pub username: String,
 }
